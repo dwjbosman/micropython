@@ -191,3 +191,8 @@ $(BUILD)/$(BTREE_DIR)/%.o: CFLAGS += -Wno-old-style-definition -Wno-sign-compare
 $(BUILD)/extmod/modbtree.o: CFLAGS += $(BTREE_DEFS)
 endif
 
+INC += -I$(BOARD_DIR)
+#SRC_CPP = extmod/custommodule/custommodule.cpp
+PY_O += extmod/custommodule/custommodule.o
+PY_O += $(addprefix $(BUILD)//, $(SRC_CPP:.cpp=.o))
+

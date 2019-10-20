@@ -30,3 +30,6 @@
 [submodule "lib/mynewt-nimble"]
 	path = lib/mynewt-nimble
 	url = https://github.com/apache/mynewt-nimble.git
+[submodule "extmod/micropython-wrap"]
+	path = extmod/micropython-wrap
+	url = https://github.com/stinos/micropython-wrap.git
