@@ -62,7 +62,9 @@
 #define MP_TASK_STACK_SIZE      (16 * 1024)
 #define MP_TASK_STACK_LEN       (MP_TASK_STACK_SIZE / sizeof(StackType_t))
 
+#ifdef MICROPY_PY_CUSTOM
 extern void RegisterMyModule(void);
+#endif
 
 int vprintf_null(const char *format, va_list ap) {
     // do nothing: this is used as a log target during raw repl mode
@@ -112,7 +114,9 @@ soft_reset:
     mp_obj_list_append(mp_sys_path, MP_OBJ_NEW_QSTR(MP_QSTR__slash_lib));
     mp_obj_list_init(mp_sys_argv, 0);
   
+#ifdef MICROPY_PY_CUSTOM
     RegisterMyModule();
+#endif
     readline_init0();
 
     // initialise peripherals
