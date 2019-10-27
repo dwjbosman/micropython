@@ -199,10 +199,4 @@ PY_O += extmod/custommodule/custommodule.o
 PY_O += $(addprefix $(BUILD)//, $(SRC_CPP:.cpp=.o))
 CFLAGS_MOD += -DMICROPY_PY_CUSTOM=1
 
-ifeq ($(ESP_IDF_VERSION),"v3.3")
-	CFLAGS_MOD += -DESP_IDF_VERSION=3
-else
-	CFLAGS_MOD += -DESP_IDF_VERSION=4
-endif
-
 endif
