@@ -245,7 +245,8 @@ CFLAGS += $(CFLAGS_MOD) $(CFLAGS_EXTRA)
 CFLAGS += -I$(BOARD_DIR)
 
 ifeq ($(ESPIDF_CURHASH),$(ESPIDF_SUPHASH_V4))
-CFLAGS += -DMICROPY_ESP_IDF_4=1
+# also report to CC and CXX
+CFLAGS_COMMON += -DMICROPY_ESP_IDF_4=1
 endif
 
 # this is what ESPIDF uses for c++ compilation
