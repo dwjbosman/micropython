@@ -351,6 +351,18 @@
 // Convenience definition for whether any native or inline assembler emitter is enabled
 #define MICROPY_EMIT_MACHINE_CODE (MICROPY_EMIT_NATIVE || MICROPY_EMIT_INLINE_ASM)
 
+// Whether native relocatable code loaded from .mpy files is explicitly tracked
+// so that the GC cannot reclaim it.  Needed on architectures that allocate
+// executable memory on the MicroPython heap and don't explicitly track this
+// data some other way.
+#ifndef MICROPY_PERSISTENT_CODE_TRACK_RELOC_CODE
+#if !MICROPY_EMIT_MACHINE_CODE || defined(MP_PLAT_ALLOC_EXEC) || defined(MP_PLAT_COMMIT_EXEC)
+#define MICROPY_PERSISTENT_CODE_TRACK_RELOC_CODE (0)
+#else
+#define MICROPY_PERSISTENT_CODE_TRACK_RELOC_CODE (1)
+#endif
+#endif
+
 /*****************************************************************************/
 /* Compiler configuration                                                    */
 
@@ -833,6 +845,11 @@ typedef double mp_float_t;
 // Support for async/await/async for/async with
 #ifndef MICROPY_PY_ASYNC_AWAIT
 #define MICROPY_PY_ASYNC_AWAIT (1)
+#endif
+
+// Support for assignment expressions with := (see PEP 572, Python 3.8+)
+#ifndef MICROPY_PY_ASSIGN_EXPR
+#define MICROPY_PY_ASSIGN_EXPR (1)
 #endif
 
 // Non-standard .pend_throw() method for generators, allowing for
